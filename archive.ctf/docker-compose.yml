@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  archive-app:
+    image: archive.ctf-archive-app
+    build: .
+    ports:
+      - "31337:5000" # This makes the archive-app accessible from anywhere
+    volumes:
+      - ./archive_server:/app
+    command: python archive_server.py
+    environment:
+      - FLASK_APP=archive_app.py
+      - FLASK_ENV=development
+    depends_on:
+      - flag-server
+
+  flag-server:
+    image: archive.ctf-flag-server
+    build: .
+    volumes:
+      - ./flag_server:/app
+    working_dir: /app
+    command: python flag_server.py
+    # No ports section for flag-server to keep it internal
+    environment:
+      - FLASK_APP=flag_server.py
+      - FLASK_ENV=development
+      - FLAG=${FLAG}
