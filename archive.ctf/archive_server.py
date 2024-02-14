@@ -12,9 +12,15 @@ ARCHIVE = {}
 def index():
     return '''
         <h1>Simple Archive Clone</h1>
+        <h2>Archive a URL</h2>
         <form action="/archive" method="post">
             URL to Archive: <input type="text" name="url"><br>
             <input type="submit" value="Archive">
+        </form>
+        <h2>View a URL</h2>
+        <form action="/view" method="get">
+            URL to View: <input type="text" name="url"><br>
+            <input type="submit" value="View">
         </form>
     '''
 
